@@ -3,5 +3,6 @@ from Management import views
 
 urlpatterns = [
     path('',views.index,name="Dashboard"),
-    path('product',views.product,name="Product")
+    path('product',views.product,name="ProductLink"),
+    path('product/<int:productDeleteId>',views.productDelete,name="productDeleteLink")
 ]
