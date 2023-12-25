@@ -24,11 +24,12 @@ def productDelete(request,productDeleteId):
     messages.success(request,"Product Deleted successfully")
     return redirect("/product")
 
-def addProduct(request):
+def updateProduct(request,updateProductId):
     if request.method=="POST":
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
     else:
         form = ProductForm()
-        return render(request,"Management/product.html",{'form',form})
+    return render(request,"Management/updateProduct.html",{'form':form})
+
