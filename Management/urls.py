@@ -4,5 +4,6 @@ from Management import views
 urlpatterns = [
     path('',views.index,name="Dashboard"),
     path('product',views.product,name="ProductLink"),
-    path('productdelete/<int:productDeleteId>/',views.productDelete,name="productDeleteLink")
+    path('productdelete/<int:productDeleteId>/',views.productDelete,name="productDeleteLink"),
+    path('addProduct/',views.addProduct,name="addProductLink")
 ]
