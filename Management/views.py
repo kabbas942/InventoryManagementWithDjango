@@ -13,6 +13,9 @@ def product(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,"Product Added successfully")
+        else:
+            messages.warning(request,"Product Addition Unsuccessful.")
     else:
         form = ProductForm()
     ProductDictionary = {'ProductInfo':productsInfo,'form':form}
@@ -21,8 +24,10 @@ def product(request):
 def productDelete(request,productDeleteId):
     print(productDeleteId)
     productInfo = models.Product.objects.get(id=productDeleteId)
-    productInfo.delete()
-    messages.success(request,"Product Deleted successfully")
+    if productInfo.delete():
+        messages.success(request,"Product Deleted successfully")
+    else:
+        messages.warning(request,"Product Deletion unsuccessful.")
     return redirect("/product")
 
 def updateProduct(request,updateProductId):
@@ -31,6 +36,10 @@ def updateProduct(request,updateProductId):
         form = ProductForm(request.POST,instance=Record)
         if form.is_valid():
             form.save()
+            messages.success(request,"Product Updated successfully.")
+        else:
+            messages.warning(request,"Product Updation Unsuccessful.")
+        return redirect("/product")
     else:
         form = ProductForm(initial=model_to_dict(Record))
     return render(request,"Management/updateProduct.html",{'form':form})
