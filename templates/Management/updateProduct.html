@@ -6,18 +6,11 @@ Update Product
 Update Product
 {% endblock pagename %}
 {% block body %}
-
-
 <form method="post">
-
-      
-        {% csrf_token %}
-      {{form.as_p}}
-
-
-      <button type="submit" name="" id="" class="btn btn-success">Add</button>
-
-  </form>
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit" name="" id="" class="btn btn-success">Add</button>
+</form>
 {% endblock body %}
  
 

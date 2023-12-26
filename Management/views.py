@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from Management import models
+from django.forms.models import model_to_dict
 from django.contrib import messages
 from Management.forms import ProductForm
 # Create your views here.
@@ -25,11 +26,12 @@ def productDelete(request,productDeleteId):
     return redirect("/product")
 
 def updateProduct(request,updateProductId):
+    Record=models.Product.objects.get(id=updateProductId)
     if request.method=="POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST,instance=Record)
         if form.is_valid():
             form.save()
     else:
-        form = ProductForm()
+        form = ProductForm(initial=model_to_dict(Record))
     return render(request,"Management/updateProduct.html",{'form':form})
 
