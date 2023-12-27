@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 CATEGORY = (("Stationary","Stationary"),
             ("Electronics","Electronics"),
             ("Food","Food"))
@@ -13,3 +14,10 @@ class Product(models.Model):
         return f'{self.ProductName}'
 
     #Product Name 	Categories 	Prices 	Actions
+
+class Order(models.Model):
+    OrderId = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+    CustomerId = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    PlacementTime = models.DateField(auto_now=True)
+    def __str__(self):
+        return f'{self.CustomerId}-{self.OrderId}'
