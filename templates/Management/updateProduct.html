@@ -1,17 +1,17 @@
-{% extends "Management/base.html" %}
+{% extends "Management/layout.html" %}
 {% block title %}
 Update Product
 {% endblock title %}
 {% block pagename %}
 Update Product
 {% endblock pagename %}
-{% block body %}
+{% block content %}
 <form method="post">
 {% csrf_token %}
 {{form.as_p}}
 <button type="submit" name="" id="" class="btn btn-success">Add</button>
 </form>
-{% endblock body %}
+{% endblock content %}
  
 
     

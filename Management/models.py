@@ -15,9 +15,10 @@ class Product(models.Model):
 
     #Product Name 	Categories 	Prices 	Actions
 
-class Order(models.Model):
-    OrderId = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
-    CustomerId = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+class SELL(models.Model):
+    SellId = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+    UserId = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    TotalAmount=models.PositiveBigIntegerField(null=True)
     PlacementTime = models.DateField(auto_now=True)
     def __str__(self):
-        return f'{self.CustomerId}-{self.OrderId}'
+        return f'{self.UserId}-{self.SellId}'

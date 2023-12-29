@@ -2,11 +2,14 @@ from django.shortcuts import render,redirect
 from Management import models
 from django.forms.models import model_to_dict
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from Management.forms import ProductForm
 # Create your views here.
+@login_required(login_url='user-login')
 def index(request):
     return render(request,"Management/index.html")
 
+@login_required(login_url='user-login')
 def product(request):
     productsInfo = models.Product.objects.all()
     if request.method=="POST":
@@ -21,6 +24,7 @@ def product(request):
     ProductDictionary = {'ProductInfo':productsInfo,'form':form}
     return render(request,"Management/product.html",ProductDictionary)
 
+@login_required(login_url='user-login')
 def productDelete(request,productDeleteId):
     print(productDeleteId)
     productInfo = models.Product.objects.get(id=productDeleteId)
@@ -30,6 +34,7 @@ def productDelete(request,productDeleteId):
         messages.warning(request,"Product Deletion unsuccessful.")
     return redirect("/product")
 
+@login_required(login_url='user-login')
 def updateProduct(request,updateProductId):
     Record=models.Product.objects.get(id=updateProductId)
     if request.method=="POST":
