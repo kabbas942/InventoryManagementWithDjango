@@ -32,7 +32,7 @@ def productDelete(request,productDeleteId):
         messages.success(request,"Product Deleted successfully")
     else:
         messages.warning(request,"Product Deletion unsuccessful.")
-    return redirect("/product")
+    return redirect("/Management/product")
 
 @login_required(login_url='user-login')
 def updateProduct(request,updateProductId):
@@ -44,8 +44,9 @@ def updateProduct(request,updateProductId):
             messages.success(request,"Product Updated successfully.")
         else:
             messages.warning(request,"Product Updation Unsuccessful.")
-        return redirect("/product")
+        return redirect("/Managament/product")
     else:
         form = ProductForm(initial=model_to_dict(Record))
     return render(request,"Management/updateProduct.html",{'form':form})
+
 

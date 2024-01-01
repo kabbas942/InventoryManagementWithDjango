@@ -13,7 +13,9 @@
         {% csrf_token %}
         <h1 class="h3 mb-3 font-weight-normal text-center">Sign in</h1>
         {{ form|crispy }}
+        <a href="{% url "signup" %}">Create new Account</a><br><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
     </form>
 
 </div>
