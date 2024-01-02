@@ -4,12 +4,15 @@ from django.forms.models import model_to_dict
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Management.forms import ProductForm
+from Account.decorator import allowed_users
+from django.contrib.auth.models import User,Group
 # Create your views here.
 @login_required(login_url='user-login')
 def index(request):
     return render(request,"Management/index.html")
 
 @login_required(login_url='user-login')
+@allowed_users(allowed_roles=['Admin'])
 def product(request):
     productsInfo = models.Product.objects.all()
     if request.method=="POST":
@@ -28,6 +31,7 @@ def product(request):
 def productDelete(request,productDeleteId):
     print(productDeleteId)
     productInfo = models.Product.objects.get(id=productDeleteId)
+   
     if productInfo.delete():
         messages.success(request,"Product Deleted successfully")
     else:
@@ -35,8 +39,10 @@ def productDelete(request,productDeleteId):
     return redirect("/Management/product")
 
 @login_required(login_url='user-login')
+@allowed_users(allowed_roles=['viewers'])
 def updateProduct(request,updateProductId):
     Record=models.Product.objects.get(id=updateProductId)
+
     if request.method=="POST":
         form = ProductForm(request.POST,instance=Record)
         if form.is_valid():
